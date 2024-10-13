@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export const useGetServing = (nutrition: any) => {
-  const [data, setData] = useState<any>({});
+  const [message, setMessage] = useState<any>({});
   console.log("nutrition", nutrition.nutrition);
 
   const responseGenerate = async () => {
@@ -13,7 +13,7 @@ export const useGetServing = (nutrition: any) => {
             role: "user",
             content: `The following data represents the nutritonal information for a full recipe: ${JSON.stringify(
               nutrition.nutrition
-            )}. Using this, can you estimate a serving size and generate a similar set of data?`,
+            )}. Using this, can you estimate the number of servings?`,
           },
         ]
       };
@@ -30,7 +30,7 @@ export const useGetServing = (nutrition: any) => {
       );
       const data = await response.json();
       console.log("data1", data);
-      setData(data);
+      setMessage(data.choices[0].message.content);
     } catch (error) {
       console.error(error);
     }
@@ -38,5 +38,7 @@ export const useGetServing = (nutrition: any) => {
 
   useEffect(() => {
     responseGenerate();
-  }, [data]);
+  }, []);
+
+  return message
 };

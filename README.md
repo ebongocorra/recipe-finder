@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# My Recipe Finder
 
 ## Getting Started
 
@@ -16,21 +16,12 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You will be directed to a blank search page. In the search bar, enter key words to a recipe you are looking for.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## List Page
 
-## Learn More
+When you enter a key word(s), you will be directed to the '/list/' page, which is a list of recipes containing the key word(s). For example, if you search 'beef', you will find recipes with the word beef.
 
-To learn more about Next.js, take a look at the following resources:
+## Recipe Page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Click on any recipe in the list and you will be directed to its '/recipe/' page. There you will find a photo of the recipe, a list of necessary ingredients, a ChatGPT generated list of instructions on how to make the recipe, and a label containing nutrition facts such as calorie, macronutrient, and micronutrient content.

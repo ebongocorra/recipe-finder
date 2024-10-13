@@ -9,9 +9,7 @@ export const Instructions = (name: any, ingredients: any) => {
     name.name,
     name.ingredients
   );
-
   const instructions = data?.toString().split("\n");
-//   console.log("inst", instructions)
 
   return  (
     <ul>
