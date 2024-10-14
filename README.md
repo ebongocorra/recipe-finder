@@ -24,4 +24,4 @@ When you enter a key word(s), you will be directed to the '/list/' page, which i
 
 ## Recipe Page
 
-Click on any recipe in the list and you will be directed to its '/recipe/' page. There you will find a photo of the recipe, a list of necessary ingredients, a ChatGPT generated list of instructions on how to make the recipe, and a label containing nutrition facts such as calorie, macronutrient, and micronutrient content.
+Click on any recipe in the list and you will be directed to its '/recipe/' page. There you will find a photo of the recipe, a list of necessary ingredients, a ChatGPT generated list of instructions on how to make the recipe, and a label containing nutrition facts such as calorie and nutrient content.
