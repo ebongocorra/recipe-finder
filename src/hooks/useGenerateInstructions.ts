@@ -39,14 +39,13 @@ export const useGenerateInstructions = (name: string, ingredients: string[]) => 
         const decoder = new TextDecoder();
         let done = false;
         let accumulatedText = "";
-        console.log("decoder", decoder)
+       // console.log("decoder", decoder)
   
         while (!done) {
           const { done: readerDone, value } = await reader.read();
           done = readerDone;
-          console.log("Done", done, "chunk", decoder.decode(value, { stream: true }))
+         // console.log("Done", done, "chunk", decoder.decode(value, { stream: true }))
           const chunk = decoder.decode(value, { stream: true });
-  
           // Process each chunk and filter out unwanted parts
           const parsedChunks = chunk
             .split("\n")
@@ -54,6 +53,7 @@ export const useGenerateInstructions = (name: string, ingredients: string[]) => 
             .map((line) => line.replace(/^data: /, "")); // Remove "data: " prefix
   
           for (const parsedChunk of parsedChunks) {
+          //  console.log("PC", parsedChunk)
             if (parsedChunk === "[DONE]") {
               done = true;
               break;
@@ -63,6 +63,7 @@ export const useGenerateInstructions = (name: string, ingredients: string[]) => 
               // Parse the chunk into JSON and extract content
               const json = JSON.parse(parsedChunk);
               const content = json.choices[0]?.delta?.content;
+            //  console.log("Content", content)
               if (content) {
                 // Append the content to the current data
                 setData((prevData) => prevData + content);

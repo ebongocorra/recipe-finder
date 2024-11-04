@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 export const useGetServing = (nutrition: any) => {
   const [message, setMessage] = useState<any>({});
+  const [servingsNum, setServingsNum] = useState(1)
   console.log("nutrition", nutrition.nutrition);
 
   const responseGenerate = async () => {
@@ -13,9 +14,10 @@ export const useGetServing = (nutrition: any) => {
             role: "user",
             content: `The following data represents the nutritonal information for a full recipe: ${JSON.stringify(
               nutrition.nutrition
-            )}. Using this, can you estimate the number of servings?`,
+            )}. Using this, can you estimate the serving size and create a similar json object for one serving?`,
           },
-        ]
+        ],
+        response_format: { type: "json_object" },
       };
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -40,5 +42,5 @@ export const useGetServing = (nutrition: any) => {
     responseGenerate();
   }, []);
 
-  return message
+  return typeof message !== "object" ? JSON.parse(message) : message;
 };

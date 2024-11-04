@@ -1,106 +1,305 @@
 import { formatNumber } from "@/app/functions/formatNumber";
 import "../app/styles/nutritionLabel.css";
 import { useGetServing } from "@/hooks/useGetServing";
+import { Loader } from "./Loader";
 
 export const NutritionLabel = (nutrition: any, daily: any) => {
-  const message = useGetServing(nutrition);
-  const servings = message.toString()?.match(/(\d+(\.\d+)?)\s+servings/);
-  console.log("m", message);
-  console.log("s", servings);
+  const serving = useGetServing(nutrition);
+  const servingsNum = serving.ENERC_KCAL
+    ? (formatNumber(
+        nutrition?.nutrition.ENERC_KCAL.quantity,
+        0
+      ) as unknown as number) /
+      (formatNumber(serving.ENERC_KCAL.quantity, 0) as unknown as number)
+    : 1;
+  console.log("serving", serving.ENERC_KCAL);
+  console.log(
+    "num",
+    (formatNumber(nutrition?.daily.FAT.quantity, 0) as unknown as number) /
+      servingsNum
+  );
+  // console.log("s", servings);
+  //serving.ENERC_KCAL ?
   return (
-    servings && (
-      <div className="label">
-        <h2 className="font-bold border-b-2 text-3xl">Nutrition Facts</h2>
-        <div>
+    <div className="label">
+      <div>
+        <div className="pt-2">
           <div className="header">
             <div className="flex text-xl">
-              <h1 className="font-bold pr-2">Calories</h1>{" "}
-              <p className="ml-auto font-bold text-2xl">
-                {formatNumber(nutrition?.nutrition.ENERC_KCAL.quantity, 0, servings[1] as number)}
-              </p>
+              <h1 className="font-bold pr-2">Calories</h1>
             </div>
           </div>
           <div className="flex border-b-2">
             <p className="ml-auto text-sm font-bold">% Daily Value</p>
           </div>
           <div className="flex border-b-2 text-sm">
-            <h1 className="font-bold pr-2">Total Fat</h1>{" "}
-            {formatNumber(nutrition?.nutrition.FAT.quantity, 0, servings[1] as number)}g
-            <p className="ml-auto font-bold">
-              {formatNumber(nutrition?.daily.FAT.quantity, 0, servings[1] as number)}%
-            </p>
+            <h1 className="font-bold pr-2">Total Fat</h1>
           </div>
-          <div className="flex border-b-2 pl-5 text-sm">
-            Saturated Fat {formatNumber(nutrition?.nutrition.FASAT.quantity, 0, servings[1] as number)}
-            g
-            <p className="ml-auto font-bold">
-              {formatNumber(nutrition?.daily.FASAT.quantity, 0, servings[1] as number)}%
-            </p>
-          </div>
+          <div className="flex border-b-2 pl-5 text-sm">Saturated Fat</div>
           <div className="border-b-2 pl-5 text-sm">
-            Trans Fat {formatNumber(nutrition?.nutrition.FATRN.quantity, 0, servings[1] as number)}g
+            {/* Trans Fat {formatNumber(serving.FATRN.quantity, 0)}g */}
           </div>
           <div className="flex border-b-2 text-sm">
             <h1 className="font-bold pr-2">Cholesterol</h1>{" "}
-            {formatNumber(nutrition?.nutrition.CHOLE.quantity, 0, servings[1] as number)}mg
+          </div>
+          <div className="flex border-b-2 text-sm">
+            <h1 className="font-bold pr-2">Sodium</h1>
+          </div>
+          <div className="flex border-b-2 text-sm">
+            <h1 className="font-bold pr-2">Total Carbohydrate</h1>
+          </div>
+          <div className="border-b-2 pl-5 flex text-sm">Dietary Fiber</div>
+          <div className="border-b-2 pl-5 text-sm">Total Sugars</div>
+          <div className="flex border-b-8 border-black text-sm">
+            <h1 className="font-bold pr-2">Protein</h1>
+          </div>
+          <div className="border-b-2 flex text-sm">Vitamin D</div>
+          <div className="border-b-2 flex text-sm">Calcium</div>
+          <div className="border-b-2 flex text-sm">Iron</div>
+          <div className="border-b-8 border-black flex text-sm">Potassium</div>
+        </div>
+      </div>
+      <div>
+        <a>*per serving</a>
+        <div>
+          {serving.ENERC_KCAL ? (
+            <div className="header">
+              <div className="flex text-xl">
+                <p className="ml-auto font-bold text-2xl">
+                  {formatNumber(serving.ENERC_KCAL.quantity, 0)}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="skeleton"></div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="flex border-b-2"></div>
+          ) : (
+            <div className="skeleton"></div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="flex border-b-2 text-sm">
+              {formatNumber(serving.FAT.quantity, 0)}g
+              <p className="ml-auto font-bold">
+                {formatNumber(nutrition?.daily.FAT.quantity / servingsNum, 0)}%
+              </p>
+            </div>
+          ) : (
+            <div className="skeleton"></div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="flex border-b-2 text-sm">
+              {formatNumber(serving.FASAT.quantity, 0)}g
+              <p className="ml-auto font-bold">
+                {formatNumber(nutrition?.daily.FASAT.quantity / servingsNum, 0)}
+                %
+              </p>
+            </div>
+          ) : (
+            <div className="skeleton"></div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="flex border-b-2 text-sm">
+              {formatNumber(serving.CHOLE.quantity, 0)}mg
+              <p className="ml-auto font-bold">
+                {formatNumber(nutrition?.daily.CHOLE.quantity / servingsNum, 0)}
+                %
+              </p>
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="flex border-b-2 text-sm">
+              {formatNumber(serving.NA.quantity, 0)}mg
+              <p className="ml-auto font-bold">
+                {formatNumber(nutrition?.daily.NA.quantity / servingsNum, 0)}%
+              </p>
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="flex border-b-2 text-sm">
+              {formatNumber(serving.CHOCDF.quantity, 0)}g
+              <p className="ml-auto font-bold">
+                {formatNumber(
+                  nutrition?.daily.CHOCDF.quantity / servingsNum,
+                  0
+                )}
+                %
+              </p>
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="border-b-2 flex text-sm">
+              {formatNumber(serving.FIBTG.quantity, 0)}g
+              <p className="pl-20 font-bold pr-5">
+                {formatNumber(nutrition?.daily.FIBTG.quantity / servingsNum, 0)}
+                %
+              </p>
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div>{formatNumber(serving.SUGAR.quantity, 0)}g</div>
+          ) : (
+            <div className="skeleton"></div>
+          )}
+          <div className="border-b-2 text-sm"></div>
+          {serving.ENERC_KCAL ? (
+            <div className="flex border-b-8 border-black text-sm">
+              {formatNumber(serving.PROCNT.quantity, 0)}g
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="border-b-2 flex text-sm">
+              {formatNumber(serving.VITD.quantity, 1)}mcg
+              <p className="ml-auto">
+                {formatNumber(nutrition?.daily.VITD.quantity / servingsNum, 0)}%
+              </p>
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="border-b-2 flex text-sm">
+              {formatNumber(serving.CA.quantity, 0)}mg
+              <p className="ml-auto">
+                {formatNumber(nutrition?.daily.CA.quantity / servingsNum, 0)}%
+              </p>
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="border-b-2 flex text-sm">
+              {formatNumber(serving.FE.quantity, 0)}mg
+              <p className="ml-auto">
+                {formatNumber(nutrition?.daily.FE.quantity / servingsNum, 0)}%
+              </p>
+            </div>
+          ) : (
+            <div className="flex border-b-2">
+              <div className="skeleton"></div>
+            </div>
+          )}
+          {serving.ENERC_KCAL ? (
+            <div className="border-b-8 border-black flex text-sm">
+              {formatNumber(serving.K.quantity, 0)}mg
+              <p className="ml-auto">
+                {formatNumber(nutrition?.daily.K.quantity / servingsNum, 0)}%
+              </p>
+            </div>
+          ) : (
+            <div className="border-b-8 border-black flex">
+              <div className="skeleton"></div>
+            </div>
+          )}
+        </div>
+      </div>
+      <div>
+        <a>*per recipe</a>
+        <div>
+          <div className="header">
+            <div className="flex text-xl">
+              <p className="ml-auto font-bold text-2xl">
+                {formatNumber(nutrition?.nutrition.ENERC_KCAL.quantity, 0)}
+              </p>
+            </div>
+          </div>
+          <div className="flex border-b-2"></div>
+          <div className="flex border-b-2 text-sm">
+            {formatNumber(nutrition?.nutrition.FAT.quantity, 0)}g
             <p className="ml-auto font-bold">
-              {formatNumber(nutrition?.daily.CHOLE.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.FAT.quantity, 0)}%
             </p>
           </div>
           <div className="flex border-b-2 text-sm">
-            <h1 className="font-bold pr-2">Sodium</h1>{" "}
-            {formatNumber(nutrition?.nutrition.NA.quantity, 0, servings[1] as number)}mg
+            {formatNumber(nutrition?.nutrition.FASAT.quantity, 0)}g
             <p className="ml-auto font-bold">
-              {formatNumber(nutrition?.daily.NA.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.FASAT.quantity, 0)}%
+            </p>
+          </div>
+          <div className="border-b-2 text-sm">
+            {/* Trans Fat {formatNumber(serving.FATRN.quantity, 0)}g */}
+          </div>
+          <div className="flex border-b-2 text-sm">
+            {formatNumber(nutrition?.nutrition.CHOLE.quantity, 0)}mg
+            <p className="ml-auto font-bold">
+              {formatNumber(nutrition?.daily.CHOLE.quantity, 0)}%
             </p>
           </div>
           <div className="flex border-b-2 text-sm">
-            <h1 className="font-bold pr-2">Total Carbohydrate</h1>{" "}
-            {formatNumber(nutrition?.nutrition.CHOCDF.quantity, 0, servings[1] as number)}g
+            {formatNumber(nutrition?.nutrition.NA.quantity, 0)}mg
             <p className="ml-auto font-bold">
-              {formatNumber(nutrition?.daily.CHOCDF.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.NA.quantity, 0)}%
             </p>
           </div>
-          <div className="border-b-2 pl-5 flex text-sm">
-            Dietary Fiber {formatNumber(nutrition?.nutrition.FIBTG.quantity, 0, servings[1] as number)}
-            g
+          <div className="flex border-b-2 text-sm">
+            {formatNumber(nutrition?.nutrition.CHOCDF.quantity, 0)}g
+            <p className="ml-auto font-bold">
+              {formatNumber(nutrition?.daily.CHOCDF.quantity, 0)}%
+            </p>
+          </div>
+          <div className="border-b-2 flex text-sm">
+            {formatNumber(nutrition?.nutrition.FIBTG.quantity, 0)}g
             <p className="pl-20 font-bold">
-              {formatNumber(nutrition?.daily.FIBTG.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.FIBTG.quantity, 0)}%
             </p>
           </div>
-          <div className="border-b-2 pl-5 text-sm">
-            Total Sugars {formatNumber(nutrition?.nutrition.SUGAR.quantity, 0, servings[1] as number)}g
+          <div className="border-b-2 text-sm">
+            {formatNumber(nutrition?.nutrition.SUGAR.quantity, 0)}g
           </div>
           <div className="flex border-b-8 border-black text-sm">
-            <h1 className="font-bold pr-2">Protein</h1>{" "}
-            {formatNumber(nutrition?.nutrition.PROCNT.quantity, 0, servings[1] as number)}g
+            {formatNumber(nutrition?.nutrition.PROCNT.quantity, 0)}g
           </div>
           <div className="border-b-2 flex text-sm">
-            Vitamin D {formatNumber(nutrition?.nutrition.VITD.quantity, 1, servings[1] as number)}mcg
+            {formatNumber(nutrition?.nutrition.VITD.quantity, 1)}mcg
             <p className="ml-auto">
-              {formatNumber(nutrition?.daily.VITD.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.VITD.quantity, 0)}%
             </p>
           </div>
           <div className="border-b-2 flex text-sm">
-            Calcium {formatNumber(nutrition?.nutrition.CA.quantity, 0, servings[1] as number)}mg
+            {formatNumber(nutrition?.nutrition.CA.quantity, 0)}mg
             <p className="ml-auto">
-              {formatNumber(nutrition?.daily.CA.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.CA.quantity, 0)}%
             </p>
           </div>
           <div className="border-b-2 flex text-sm">
-            Iron {formatNumber(nutrition?.nutrition.FE.quantity, 0, servings[1] as number)}mg
+            {formatNumber(nutrition?.nutrition.FE.quantity, 0)}mg
             <p className="ml-auto">
-              {formatNumber(nutrition?.daily.FE.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.FE.quantity, 0)}%
             </p>
           </div>
           <div className="border-b-8 border-black flex text-sm">
-            Potassium {formatNumber(nutrition?.nutrition.K.quantity, 0, servings[1] as number)}mg
+            {formatNumber(nutrition?.nutrition.K.quantity, 0)}mg
             <p className="ml-auto">
-              {formatNumber(nutrition?.daily.K.quantity, 0, servings[1] as number)}%
+              {formatNumber(nutrition?.daily.K.quantity, 0)}%
             </p>
           </div>
         </div>
       </div>
-    )
+    </div>
   );
 };
