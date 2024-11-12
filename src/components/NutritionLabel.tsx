@@ -62,160 +62,221 @@ export const NutritionLabel = (nutrition: any, daily: any) => {
       <div>
         <a>*per serving</a>
         <div>
-          {serving.ENERC_KCAL ? (
-            <div className="header">
-              <div className="flex text-xl">
+          <div className="header">
+            <div className="flex text-xl">
+              {serving.ENERC_KCAL ? (
                 <p className="ml-auto font-bold text-2xl">
                   {formatNumber(serving.ENERC_KCAL.quantity, 0)}
                 </p>
-              </div>
+              ) : (
+                <div className="calorie-skeleton"></div>
+              )}
             </div>
-          ) : (
-            <div className="skeleton"></div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="flex border-b-2"></div>
-          ) : (
-            <div className="skeleton"></div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="flex border-b-2 text-sm">
-              {formatNumber(serving.FAT.quantity, 0)}g
-              <p className="ml-auto font-bold">
-                {formatNumber(nutrition?.daily.FAT.quantity / servingsNum, 0)}%
-              </p>
-            </div>
-          ) : (
-            <div className="skeleton"></div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="flex border-b-2 text-sm">
-              {formatNumber(serving.FASAT.quantity, 0)}g
-              <p className="ml-auto font-bold">
-                {formatNumber(nutrition?.daily.FASAT.quantity / servingsNum, 0)}
-                %
-              </p>
-            </div>
-          ) : (
-            <div className="skeleton"></div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="flex border-b-2 text-sm">
-              {formatNumber(serving.CHOLE.quantity, 0)}mg
-              <p className="ml-auto font-bold">
-                {formatNumber(nutrition?.daily.CHOLE.quantity / servingsNum, 0)}
-                %
-              </p>
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="flex border-b-2 text-sm">
-              {formatNumber(serving.NA.quantity, 0)}mg
-              <p className="ml-auto font-bold">
-                {formatNumber(nutrition?.daily.NA.quantity / servingsNum, 0)}%
-              </p>
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="flex border-b-2 text-sm">
-              {formatNumber(serving.CHOCDF.quantity, 0)}g
-              <p className="ml-auto font-bold">
-                {formatNumber(
-                  nutrition?.daily.CHOCDF.quantity / servingsNum,
-                  0
-                )}
-                %
-              </p>
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="border-b-2 flex text-sm">
-              {formatNumber(serving.FIBTG.quantity, 0)}g
-              <p className="pl-20 font-bold pr-5">
-                {formatNumber(nutrition?.daily.FIBTG.quantity / servingsNum, 0)}
-                %
-              </p>
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
+          </div>
+
+          <div className="flex border-b-2"></div>
+
+          <div className="flex border-b-2 text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.FAT.quantity, 0)}g</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto font-bold">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(nutrition?.daily.FAT.quantity / servingsNum, 0)}
+                  %
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
+          <div className="flex border-b-2 text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.FASAT.quantity, 0)}g</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto font-bold">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(
+                    nutrition?.daily.FASAT.quantity / servingsNum,
+                    0
+                  )}
+                  %
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
+          <div className="flex border-b-2 text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.CHOLE.quantity, 0)}mg</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto font-bold">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(
+                    nutrition?.daily.CHOLE.quantity / servingsNum,
+                    0
+                  )}
+                  %
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
+          <div className="flex border-b-2 text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.NA.quantity, 0)}mg</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto font-bold">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(nutrition?.daily.NA.quantity / servingsNum, 0)}%
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
+          <div className="flex border-b-2 text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.CHOCDF.quantity, 0)}g</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto font-bold">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(
+                    nutrition?.daily.CHOCDF.quantity / servingsNum,
+                    0
+                  )}
+                  %
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
+          <div className="border-b-2 flex text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.FIBTG.quantity, 0)}g</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="pl-20 font-bold pr-5">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(
+                    nutrition?.daily.FIBTG.quantity / servingsNum,
+                    0
+                  )}
+                  %
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
           {serving.ENERC_KCAL ? (
             <div>{formatNumber(serving.SUGAR.quantity, 0)}g</div>
           ) : (
-            <div className="skeleton"></div>
+            <div className="measure-skeleton"></div>
           )}
           <div className="border-b-2 text-sm"></div>
-          {serving.ENERC_KCAL ? (
-            <div className="flex border-b-8 border-black text-sm">
-              {formatNumber(serving.PROCNT.quantity, 0)}g
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="border-b-2 flex text-sm">
-              {formatNumber(serving.VITD.quantity, 1)}mcg
-              <p className="ml-auto">
-                {formatNumber(nutrition?.daily.VITD.quantity / servingsNum, 0)}%
-              </p>
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="border-b-2 flex text-sm">
-              {formatNumber(serving.CA.quantity, 0)}mg
-              <p className="ml-auto">
-                {formatNumber(nutrition?.daily.CA.quantity / servingsNum, 0)}%
-              </p>
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="border-b-2 flex text-sm">
-              {formatNumber(serving.FE.quantity, 0)}mg
-              <p className="ml-auto">
+
+          <div className="flex border-b-8 border-black text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.PROCNT.quantity, 0)}g</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+          </div>
+
+          <div className="border-b-2 flex text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.VITD.quantity, 1)}mcg</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(
+                    nutrition?.daily.VITD.quantity / servingsNum,
+                    0
+                  )}
+                  %
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
+          <div className="border-b-2 flex text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.CA.quantity, 0)}mg</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(nutrition?.daily.CA.quantity / servingsNum, 0)}%
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
+
+          <div className="border-b-2 flex text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.FE.quantity, 0)}mg</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto">
+             {serving.ENERC_KCAL ? <>
                 {formatNumber(nutrition?.daily.FE.quantity / servingsNum, 0)}%
-              </p>
-            </div>
-          ) : (
-            <div className="flex border-b-2">
-              <div className="skeleton"></div>
-            </div>
-          )}
-          {serving.ENERC_KCAL ? (
-            <div className="border-b-8 border-black flex text-sm">
-              {formatNumber(serving.K.quantity, 0)}mg
-              <p className="ml-auto">
-                {formatNumber(nutrition?.daily.K.quantity / servingsNum, 0)}%
-              </p>
-            </div>
-          ) : (
-            <div className="border-b-8 border-black flex">
-              <div className="skeleton"></div>
-            </div>
-          )}
+              </>: <div className = "percent-skeleton"></div>}
+            </p>
+          </div>
+
+          <div className="border-b-8 border-black flex text-sm">
+            {serving.ENERC_KCAL ? (
+              <>{formatNumber(serving.K.quantity, 0)}mg</>
+            ) : (
+              <div className="measure-skeleton"></div>
+            )}
+            <p className="ml-auto">
+              {serving.ENERC_KCAL ? (
+                <>
+                  {formatNumber(nutrition?.daily.K.quantity / servingsNum, 0)}%
+                </>
+              ) : (
+                <div className="percent-skeleton"></div>
+              )}
+            </p>
+          </div>
         </div>
       </div>
       <div>
